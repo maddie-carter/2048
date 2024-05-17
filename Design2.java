@@ -56,6 +56,11 @@ public class Design extends JPanel implements KeyListener, ActionListener {
             game.up();
             startAnimation();
         }
+        if (game.gameOver()) {
+            if (e.getKeyChar() == 'y') {
+                restartGame();
+            }
+        }
     }
 
     @Override
@@ -82,17 +87,45 @@ public class Design extends JPanel implements KeyListener, ActionListener {
             timer.stop();
         }
     }
+    private void restartGame() {
+        game = new Board();
+        game.spawn();
+        game.spawn();
+        //game.gameOver() = true;
+        frame.repaint();
+    }
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2 = (Graphics2D) g;
-        g2.drawString("2048", frame.getWidth() / 2 - 20, 40);
-        g2.drawString("Score: " + game.getScore(), frame.getWidth() / 2 - 20, 70);
-        g2.drawString("Press 'Enter' to Start", frame.getWidth() / 2 - 70, frame.getHeight() / 2 + 220);
-        g2.drawString("Use 'W,A,S,D' or Arrow Keys to move", frame.getWidth() / 2 - 100, frame.getHeight() / 2 + 250);
+        int centerY = frame.getHeight() / 2;
+        int centerX = frame.getWidth() / 2;
+        int textWidth2048 = g2.getFontMetrics().stringWidth("2048");
+        g2.drawString("2048", (frame.getWidth() - textWidth2048) / 2, centerY - 100);
+        String scoreText = "Score: " + game.getScore();
+        int textWidthScore = g2.getFontMetrics().stringWidth(scoreText);
+        g2.drawString(scoreText, (frame.getWidth() - textWidthScore) / 2, centerY - 70);
+        g2.drawString("Press 'Enter' to Start", (frame.getWidth() - g2.getFontMetrics().stringWidth("Press 'Enter' to Start")) / 2, frame.getHeight() / 2 + 220);
+        g2.drawString("Use 'W,A,S,D' or Arrow Keys to move", (frame.getWidth() - g2.getFontMetrics().stringWidth("Use 'W,A,S,D' or Arrow Keys to move")) / 2, frame.getHeight() / 2 + 250);
         int tileSize = Math.min(frame.getWidth(), frame.getHeight()) / 6;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 drawTiles(g, game.board[i][j], frame.getWidth() / 2 - tileSize * 2 + j * tileSize, frame.getHeight() / 2 - tileSize * 2 + i * tileSize);
+            }
+        }
+        if (game.gameOver()) {
+            String gameOverText = "Game Over! Press 'Y' to restart.";
+            int textWidthGameOver = g2.getFontMetrics().stringWidth(gameOverText);
+            g2.drawString(gameOverText, centerX - textWidthGameOver / 2, frame.getHeight() / 2);
+            g2.setColor(Color.gray);
+            g2.fillRect(140, 50, 250, 250);
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    g2.setColor(Color.RED);
+                    g2.fillRoundRect(j * 60 + 150, i * 60 + 60, 50, 50, 5, 5);
+                    g2.setColor(Color.black);
+                    g.drawString("GAME", j * 60 + 160, i * 60 + 75);
+                    g.drawString("OVER", j * 60 + 160, i * 60 + 95);
+                }
             }
         }
     }
