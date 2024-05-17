@@ -63,8 +63,20 @@ public class Board {
         }
 
     }
+    /*
+    public boolean gameOver() {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+            }
+        }
+        return false;
+    }
+    }
+    */
 
-    public void moveTiles(Direction direction) {
+
+
+    /*public void moveTiles(Direction direction) {
         boolean moved = false;
 
         resetMergedFlags();
@@ -145,200 +157,10 @@ public class Board {
             }
         }
     }
-
-    /*public void up()
-    {
-        for ( int i = 0; i < grids; i++ )
-        {
-            border = 0;
-            for ( int j = 0; j < grids; j++ )
-            {
-                if ( board[j][i].getValue() != 0 )
-                {
-                    if ( border <= j )
-                    {
-                        verticalMove( j, i, "up" );
-                    }
-                }
-            }
-        }
-    }
-
-
-    /**
-     *
-     * This method is called when a 's' or down arrow is pressed - goes through
-     * the entire board and calls verticalMove with a "down" parameter for each
-     * tile
-     */
-    /*
-    public void down()
-    {
-        for ( int i = 0; i < grids; i++ )
-        {
-            border = ( grids - 1 );
-            for ( int j = grids - 1; j >= 0; j-- )
-            {
-                if ( board[j][i].getValue() != 0 )
-                {
-                    if ( border >= j )
-                    {
-                        verticalMove( j, i, "down" );
-                    }
-                }
-            }
-        }
-    }
-
-
-    /**
-     *
-     * Compares two tile's values together and if they are the same or if one is
-     * equal to 0 (plain tile) - their values are added (provided that the tiles
-     * we are comparing are two different tiles and they are moving towards the
-     * appropriate direction) - Uses recursion to go through the entire column
-     *
-     * @param row
-     *            row that the compare tile is currently on
-     * @param col
-     *            column that the compare tile is currently on
-     * @param direction
-     *            direction (up or down) that the tile is moving in
-     */
-    /*
-    private void verticalMove( int row, int col, String direction )
-    {
-        Square initial = board[border][col];
-        Square compare = board[row][col];
-        if ( initial.getValue() == 0 || initial.getValue() == compare.getValue() )
-        {
-            if ( row > border || ( direction.equals( "down" ) && ( row < border ) ) )
-            {
-                int addScore = initial.getValue() + compare.getValue();
-                if ( initial.getValue() != 0 )
-                {
-                    score += addScore;
-                }
-                initial.setValue( addScore );
-                compare.setValue( 0 );
-            }
-        }
-        else
-        {
-            if ( direction.equals( "down" ) )
-            {
-                border--;
-            }
-            else
-            {
-                border++;
-            }
-            verticalMove( row, col, direction );
-        }
-    }
-
-
-    /**
-     *
-     * This method is called when an 'a' or left arrow is pressed - goes through
-     * the entire board and calls horizontalMove with a "left" parameter for
-     * each tile
-     */
-    /*
-    public void left()
-    {
-        for ( int i = 0; i < grids; i++ )
-        {
-            border = 0;
-            for ( int j = 0; j < grids; j++ )
-            {
-                if ( board[i][j].getValue() != 0 )
-                {
-                    if ( border <= j )
-                    {
-                        horizontalMove( i, j, "left" );
-                    }
-                }
-            }
-        }
-    }
-
-
-    /**
-     *
-     * This method is called when a 'd' or right arrow is pressed - goes through
-     * the entire board and calls horizontalMove with a "right" parameter for
-     * each tile
-     */
-    /*
-    public void right()
-    {
-        for ( int i = 0; i < grids; i++ )
-        {
-            border = ( grids - 1 );
-            for ( int j = ( grids - 1 ); j >= 0; j-- )
-            {
-                if ( board[i][j].getValue() != 0 )
-                {
-                    if ( border >= j )
-                    {
-                        horizontalMove( i, j, "right" );
-                    }
-                }
-            }
-        }
-    }
-
-
-    /**
-     *
-     * Compares two tile's values together and if they are the same or if one is
-     * equal to 0 (plain tile) - their values are added (provided that the tiles
-     * we are comparing are two different tiles and they are moving towards the
-     * appropriate direction) - Uses recursion to go through the entire row
-     *
-     * @param row
-     *            row that the compare tile is currently on
-     * @param col
-     *            column that the compare tile is currently on
-     * @param direction
-     *            direction (left or right) that the tile is moving in
-     */
-    /*
-    private void horizontalMove( int row, int col, String direction )
-    {
-        Square initial = board[row][border];
-        Square compare = board[row][col];
-        if ( initial.getValue() == 0 || initial.getValue() == compare.getValue() )
-        {
-            if ( col > border || ( direction.equals( "right" ) && ( col < border ) ) )
-            {
-                int addScore = initial.getValue() + compare.getValue();
-                if ( initial.getValue() != 0 )
-                {
-                    score += addScore;
-                }
-                initial.setValue( addScore );
-                compare.setValue( 0 );
-            }
-        }
-        else
-        {
-            if ( direction.equals( "right" ) )
-            {
-                border--;
-            }
-            else
-            {
-                border++;
-            }
-            horizontalMove( row, col, direction );
-        }
-    }
-    */
+*/
     public void up() {
         for (int col = 0; col < grids; col++) {
-            for (int row = 1; row < grids; row++) {
+            for (int row = 0; row < grids; row++) {
                 moveTile(row, col, -1, 0);
             }
         }
@@ -346,7 +168,7 @@ public class Board {
 
     public void down() {
         for (int col = 0; col < grids; col++) {
-            for (int row = grids - 2; row >= 0; row--) {
+            for (int row = grids - 1; row >= 0; row--) {
                 moveTile(row, col, 1, 0);
             }
         }
@@ -354,7 +176,7 @@ public class Board {
 
     public void left() {
         for (int row = 0; row < grids; row++) {
-            for (int col = 1; col < grids; col++) {
+            for (int col = 0; col < grids; col++) {
                 moveTile(row, col, 0, -1);
             }
         }
@@ -362,7 +184,7 @@ public class Board {
 
     public void right() {
         for (int row = 0; row < grids; row++) {
-            for (int col = grids - 2; col >= 0; col--) {
+            for (int col = grids - 1; col >= 0; col--) {
                 moveTile(row, col, 0, 1);
             }
         }
@@ -396,6 +218,37 @@ public class Board {
 
     private boolean isValid(int row, int col) {
         return row >= 0 && row < grids && col >= 0 && col < grids;
+    }
+    public boolean gameOver(){
+        int count = 0;
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                int currentValue = board[i][j].getValue();
+                if (currentValue != 0) {
+                    boolean isDifferent = true;
+                    if (i > 0 && board[i - 1][j].getValue() == currentValue) {
+                        isDifferent = false;
+                    }
+
+                    if (i < board.length - 1 && board[i + 1][j].getValue() == currentValue) {
+                        isDifferent = false;
+                    }
+
+                    if (j > 0 && board[i][j - 1].getValue() == currentValue) {
+                        isDifferent = false;
+                    }
+
+                    if (j < board[i].length - 1 && board[i][j + 1].getValue() == currentValue) {
+                        isDifferent = false;
+                    }
+                    if (isDifferent) {
+                        count++;
+                    }
+                }
+            }
+        }
+        return count == 16;
+
     }
 
 
